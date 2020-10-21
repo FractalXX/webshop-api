@@ -10,13 +10,10 @@ export class CustomerService {
 
   getAllCustomers(): CustomerModel[] {
     return customerCollection.map((customer) => {
-      let shippingInfos;
-      if ('map' in customer.shippingInfos) {
-        shippingInfos = customer.shippingInfos.map((infoId) => this.customerInfoService.getCustomerInfoById(infoId));
-      }
-      const billingInfo = this.customerInfoService.getCustomerInfoById(customer.billingInfoId);
+      // TODO use models instead of schema
+      const shippingInfos = (customer.shippingInfos as string[]).map((infoId) => this.customerInfoService.getCustomerInfoById(infoId));
+      const billingInfo = this.customerInfoService.getCustomerInfoById(customer.billingInfo as string);
 
-      // TODO remove unnecessary properties (ids)
       return plainToClass(CustomerModel, {
         ...customer,
         shippingInfos,

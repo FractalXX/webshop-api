@@ -15,6 +15,6 @@ export class ProductController {
 
   @Post()
   createProduct(@BodyParams() model: ProductCreationModel): void {
-    return;
+    return this.productService.createProduct(model);
   }
 }

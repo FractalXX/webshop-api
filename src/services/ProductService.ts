@@ -3,6 +3,7 @@ import { BadRequest } from '@tsed/exceptions';
 import ProductCreationModel from '../models/ProductCreationModel';
 import { productCollection } from '../mocks/ProductCollection';
 import { Product } from '../schemas/Product';
+import generateId from '../utils/GenerateId';
 
 @Service()
 export class ProductService {
@@ -20,6 +21,6 @@ export class ProductService {
       throw new BadRequest(`Product with item number ${itemNumber} already exists`);
     }
 
-    productCollection.push({ id: '', ...model });
+    productCollection.push({ id: generateId(), ...model });
   }
 }

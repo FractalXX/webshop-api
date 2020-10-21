@@ -1,6 +1,5 @@
-import RandExp from 'randexp';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function generateId(): string {
-  const randExp = new RandExp(/(\w|\d){24}/);
-  return randExp.gen();
+  return uuidv4().replace(/\-/g, '');
 }
