@@ -1,6 +1,6 @@
-import { Property, Required } from '@tsed/common';
+import { Minimum, Property, Required } from '@tsed/common';
 
-export class ProductCreationModel {
+export default class ProductCreationModel {
   @Required()
   @Property()
   name: string;
@@ -14,12 +14,14 @@ export class ProductCreationModel {
   manufacturer: string;
 
   @Required()
+  @Minimum(0)
   @Property()
-  price: string;
+  price: number;
 
   @Required()
+  @Minimum(0)
   @Property()
-  quantity: string;
+  quantity: number;
 
   @Property()
   description: string;

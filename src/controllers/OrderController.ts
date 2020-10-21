@@ -1,6 +1,6 @@
 import { Controller, Get, QueryParams } from '@tsed/common';
 import { Summary } from '@tsed/swagger';
-import { OrderQueryParamsModel } from '../models/OrderQueryParamsModel';
+import OrderQueryParamsModel from '../models/OrderQueryParamsModel';
 import { Order } from '../schemas/Order';
 import { OrderService } from '../services/OrderService';
 

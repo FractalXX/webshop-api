@@ -1,6 +1,6 @@
 import { Minimum, Property, Required } from '@tsed/common';
 
-export class ProductOrderModel {
+export default class ProductOrderModel {
   @Required()
   @Property()
   productId: string;

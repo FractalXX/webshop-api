@@ -1,9 +1,9 @@
 import { CollectionOf, Enum, Property, Required } from '@tsed/common';
 import { OrderStatus } from '../enums/OrderStatus';
 import { PaymentMethod } from '../enums/PaymentMethod';
-import { ProductOrderModel } from './ProductOrderModel';
+import ProductOrderModel from './ProductOrderModel';
 
-export class OrderPlaceModel {
+export default class OrderPlaceModel {
   @Required()
   @Property()
   updatedAt: Date;

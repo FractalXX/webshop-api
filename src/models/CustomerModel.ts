@@ -1,7 +1,7 @@
 import { Property } from '@tsed/common';
 import { CustomerInfo } from '../schemas/CustomerInfo';
 
-export class CustomerModel {
+export default class CustomerModel {
   @Property()
   id: string;
 
@@ -15,8 +15,8 @@ export class CustomerModel {
   birthDate: Date;
 
   @Property()
-  shippingInfos: CustomerInfo[];
+  shippingInfos: CustomerInfo[] | string[];
 
   @Property()
-  billingInfo: CustomerInfo;
+  billingInfo: CustomerInfo | string;
 }

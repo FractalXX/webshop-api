@@ -1,6 +1,6 @@
 import { Service } from '@tsed/di';
 import { orderCollection } from '../mocks/OrderCollection';
-import { OrderQueryParamsModel } from '../models/OrderQueryParamsModel';
+import OrderQueryParamsModel from '../models/OrderQueryParamsModel';
 import { Order } from '../schemas/Order';
 
 @Service()
