@@ -12,11 +12,11 @@ export class ProductService {
     return productCollection.filter((product) => {
       let predicate = true;
 
-      if (queryParams.quantityFrom) {
+      if (queryParams.quantityFrom || queryParams.quantityFrom === 0) {
         predicate = predicate && product.quantity >= queryParams.quantityFrom;
       }
 
-      if (queryParams.quantityTo) {
+      if (queryParams.quantityTo || queryParams.quantityTo === 0) {
         predicate = predicate && product.quantity <= queryParams.quantityTo;
       }
 

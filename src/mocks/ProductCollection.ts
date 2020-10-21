@@ -61,7 +61,7 @@ export const productCollection: Product[] = [
     itemNumber: 'KNAFT4A20D5804135',
     description: 'Sharable 24 hour help-desk',
     manufacturer: 'Baidu, Inc.',
-    quantity: 42,
+    quantity: 0,
     price: 75022,
   },
   {
