@@ -3,7 +3,7 @@ import { Summary } from '@tsed/swagger';
 import CustomerModel from '../models/CustomerModel';
 import { CustomerService } from '../services/CustomerService';
 
-@Controller('/customer')
+@Controller('/customers')
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
 

@@ -4,11 +4,24 @@ import ProductCreationModel from '../models/ProductCreationModel';
 import { productCollection } from '../mocks/ProductCollection';
 import { Product } from '../schemas/Product';
 import generateId from '../utils/GenerateId';
+import ProductQueryParamsModel from '../models/ProductQueryParamsModel';
 
 @Service()
 export class ProductService {
-  getAllProducts(): Product[] {
-    return productCollection;
+  getProducts(queryParams: ProductQueryParamsModel): Product[] {
+    return productCollection.filter((product) => {
+      let predicate = true;
+
+      if (queryParams.quantityFrom) {
+        predicate = predicate && product.quantity >= queryParams.quantityFrom;
+      }
+
+      if (queryParams.quantityTo) {
+        predicate = predicate && product.quantity <= queryParams.quantityTo;
+      }
+
+      return predicate;
+    });
   }
 
   findByItemNumber(itemNumber: string): Product | undefined {

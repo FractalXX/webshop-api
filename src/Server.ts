@@ -15,7 +15,7 @@ export const rootDir = __dirname;
   acceptMimes: ['application/json'],
   httpPort: process.env.PORT || 3000,
   mount: {
-    '/api': [`${rootDir}/controllers/**/*.ts`],
+    '/': [`${rootDir}/controllers/**/*.ts`],
   },
   swagger: [
     {

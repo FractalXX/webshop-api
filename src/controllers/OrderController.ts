@@ -5,7 +5,7 @@ import OrderQueryParamsModel from '../models/OrderQueryParamsModel';
 import { Order } from '../schemas/Order';
 import { OrderService } from '../services/OrderService';
 
-@Controller('/order')
+@Controller('/orders')
 export class OrderController {
   constructor(private orderService: OrderService) {}
 
