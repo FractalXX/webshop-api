@@ -1,4 +1,4 @@
-import { ProductOrder } from '../schemas/ProductOrder';
+import ProductOrder from '../schemas/ProductOrder';
 
 export const productOrderCollection: ProductOrder[] = [
   {

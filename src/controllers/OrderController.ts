@@ -1,8 +1,8 @@
 import { BodyParams, Controller, Get, Post, QueryParams } from '@tsed/common';
 import { Summary } from '@tsed/swagger';
+import OrderModel from '../models/OrderModel';
 import OrderPlaceModel from '../models/OrderPlaceModel';
 import OrderQueryParamsModel from '../models/OrderQueryParamsModel';
-import { Order } from '../schemas/Order';
 import { OrderService } from '../services/OrderService';
 
 @Controller('/orders')
@@ -11,8 +11,7 @@ export class OrderController {
 
   @Get()
   @Summary('Get all orders')
-  // TODO model
-  getOrders(@QueryParams() queryParams: OrderQueryParamsModel): Order[] {
+  getOrders(@QueryParams() queryParams: OrderQueryParamsModel): OrderModel[] {
     return this.orderService.getOrdersByQueryParams(queryParams);
   }
 

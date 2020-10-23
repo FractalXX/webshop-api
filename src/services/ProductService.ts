@@ -24,6 +24,10 @@ export class ProductService {
     });
   }
 
+  getProductById(id: string): Product | undefined {
+    return productCollection.find((product) => product.id === id);
+  }
+
   findByItemNumber(itemNumber: string): Product | undefined {
     return productCollection.find((product) => product.itemNumber === itemNumber);
   }

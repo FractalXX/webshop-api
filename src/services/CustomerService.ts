@@ -21,4 +21,8 @@ export class CustomerService {
       });
     });
   }
+
+  getCustomerById(id: string): CustomerModel | undefined {
+    return customerCollection.find((customer) => customer.id === id);
+  }
 }
