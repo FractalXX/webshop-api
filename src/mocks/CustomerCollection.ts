@@ -15,7 +15,14 @@ export const customerCollection: CustomerModel[] = [
     name: 'Haley Oldcote',
     email: 'holdcote1@jugem.jp',
     birthDate: new Date('1992-09-21'),
-    shippingInfos: ['5067368Vj36pdbP2045L9Nn7'],
+    shippingInfos: [
+      '5067368Vj36pdbP2045L9Nn7',
+      'oN08tP5662As3oJJ2y617BfX',
+      'd2k35mTjw9Ctg611Gt75ZYD5',
+      '62wi235499g2E6iZf0Z2w28F',
+      '8QoOse283I7X4XrGqC9e2w1p',
+      'N07Zqhj18kN4X8FO4trzMYh8',
+    ],
     billingInfo: '08EB1r0428v37LU795a4zZTp',
   },
   {

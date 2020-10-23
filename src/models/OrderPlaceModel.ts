@@ -16,4 +16,12 @@ export default class OrderPlaceModel {
   @Required()
   @Property()
   customerId: string;
+
+  @Required()
+  @Property()
+  shippingInfoId: string;
+
+  @Required()
+  @Property()
+  billingInfoId: string;
 }
