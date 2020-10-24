@@ -32,11 +32,29 @@ export class OrderService {
   createOrder(model: OrderPlaceModel): void {
     this.validateOrder(model);
 
+    const customer = this.customerService.getCustomerById(model.customerId);
+    const billingInfoId = model.billingInfoId || (customer?.billingInfo as string);
+    if (!model.billingInfoId) {
+      model.billingInfoId = billingInfoId;
+    }
+
+    if (!model.shippingInfoId) {
+      model.shippingInfoId = billingInfoId;
+    }
+
+    const id = generateId();
     orderCollection.push({
-      id: generateId(),
+      id,
       placedAt: new Date(),
       status: OrderStatus.PROCESSING,
       ...model,
+    });
+
+    model.productOrders.forEach((productOrder) => {
+      this.productOrderService.addProductOrder({
+        ...productOrder,
+        orderId: id,
+      });
     });
   }
 
@@ -65,7 +83,7 @@ export class OrderService {
         throw new BadRequest(`Product with id ${productOrder.productId} does not exist.`);
       }
 
-      if (productOrder.quantity - product.quantity < 0) {
+      if (product.quantity - productOrder.quantity < 0) {
         throw new BadRequest(`Quantity is too big for product with id ${productOrder.productId}.`);
       }
     });

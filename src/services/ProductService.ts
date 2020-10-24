@@ -40,4 +40,17 @@ export class ProductService {
 
     productCollection.push({ id: generateId(), ...model });
   }
+
+  updateByExisting(id: string, dataFn: (product: Product) => Partial<Product>): void {
+    const product = this.getProductById(id);
+
+    if (!product) {
+      throw Error(`Product with id ${id} does not exist`);
+    }
+
+    productCollection[productCollection.indexOf(product)] = {
+      ...product,
+      ...dataFn(product),
+    };
+  }
 }

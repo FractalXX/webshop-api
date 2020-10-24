@@ -1,4 +1,4 @@
-import { Minimum, Property, Required } from '@tsed/common';
+import { Ignore, Minimum, Property, Required } from '@tsed/common';
 
 export default class ProductOrderModel {
   @Required()
@@ -10,7 +10,6 @@ export default class ProductOrderModel {
   @Property()
   quantity: number;
 
-  @Required()
-  @Property()
+  @Ignore()
   orderId: string;
 }

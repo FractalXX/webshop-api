@@ -28,17 +28,20 @@ export class CustomerService {
     return customerCollection.find((customer) => customer.id === id);
   }
 
-  createCustomer(model: CustomerModel): void {
+  createCustomer(model: CustomerModel): CustomerModel {
     const billingInfoId = this.customerInfoService.addCustomerInfo(model.billingInfo as CustomerInfo);
     const shippingInfoIds = (model.shippingInfos as CustomerInfo[]).map((shippingInfo) =>
       this.customerInfoService.addCustomerInfo(shippingInfo)
     );
 
-    customerCollection.push({
+    const customer: CustomerModel = {
       ...model,
       id: generateId(),
       billingInfo: billingInfoId,
       shippingInfos: shippingInfoIds,
-    });
+    };
+
+    customerCollection.push(customer);
+    return customer;
   }
 }

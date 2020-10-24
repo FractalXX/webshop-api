@@ -17,11 +17,9 @@ export default class OrderPlaceModel {
   @Property()
   customerId: string;
 
-  @Required()
   @Property()
   shippingInfoId: string;
 
-  @Required()
   @Property()
   billingInfoId: string;
 }

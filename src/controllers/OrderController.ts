@@ -1,4 +1,4 @@
-import { BodyParams, Controller, Get, Post, QueryParams } from '@tsed/common';
+import { BodyParams, Controller, Get, Post, QueryParams, Status } from '@tsed/common';
 import { Summary } from '@tsed/swagger';
 import OrderModel from '../models/OrderModel';
 import OrderPlaceModel from '../models/OrderPlaceModel';
@@ -16,6 +16,7 @@ export class OrderController {
   }
 
   @Post()
+  @Status(201)
   @Summary('Create an order')
   createOrder(@BodyParams() model: OrderPlaceModel): void {
     this.orderService.createOrder(model);
