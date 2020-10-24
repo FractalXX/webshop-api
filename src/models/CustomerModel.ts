@@ -1,27 +1,29 @@
-import { Property, Required } from '@tsed/common';
-import { CustomerInfo } from '../schemas/CustomerInfo';
+import { Pattern, Property, Required } from '@tsed/common';
+import { noWhitespaceOnlyPattern } from '../utils/Patterns';
+import CustomerInfoModel from './CustomerInfoModel';
 
 export default class CustomerModel {
   @Property()
   id?: string;
 
-  @Property()
   @Required()
+  @Pattern(noWhitespaceOnlyPattern)
+  @Property()
   name: string;
 
-  @Property()
   @Required()
+  @Property()
   email: string;
 
-  @Property()
   @Required()
+  @Property()
   birthDate: Date;
 
-  @Property()
   @Required()
-  shippingInfos: CustomerInfo[] | string[];
+  @Property()
+  shippingInfos: CustomerInfoModel[];
 
-  @Property()
   @Required()
-  billingInfo: CustomerInfo | string;
+  @Property()
+  billingInfo: CustomerInfoModel;
 }

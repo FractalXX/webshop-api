@@ -1,7 +1,6 @@
 import { CustomerInfoType } from '../enums/CustomerInfoType';
-import { CustomerInfo } from '../schemas/CustomerInfo';
 
-export const customerInfoCollection: CustomerInfo[] = [
+export const customerInfoCollection = [
   {
     id: 'H74nA9I0J537F938w902n0Rj',
     type: CustomerInfoType.SHIPPING_INFO,

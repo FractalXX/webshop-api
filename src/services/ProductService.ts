@@ -1,14 +1,13 @@
 import { Service } from '@tsed/common';
 import { BadRequest } from '@tsed/exceptions';
-import ProductCreationModel from '../models/ProductCreationModel';
 import { productCollection } from '../mocks/ProductCollection';
-import { Product } from '../schemas/Product';
 import generateId from '../utils/GenerateId';
 import ProductQueryParamsModel from '../models/ProductQueryParamsModel';
+import ProductModel from '../models/ProductModel';
 
 @Service()
 export class ProductService {
-  getProducts(queryParams: ProductQueryParamsModel): Product[] {
+  getProducts(queryParams: ProductQueryParamsModel): ProductModel[] {
     return productCollection.filter((product) => {
       let predicate = true;
 
@@ -24,24 +23,24 @@ export class ProductService {
     });
   }
 
-  getProductById(id: string): Product | undefined {
+  getProductById(id: string): ProductModel | undefined {
     return productCollection.find((product) => product.id === id);
   }
 
-  findByItemNumber(itemNumber: string): Product | undefined {
+  findByItemNumber(itemNumber: string): ProductModel | undefined {
     return productCollection.find((product) => product.itemNumber === itemNumber);
   }
 
-  createProduct(model: ProductCreationModel): void {
+  createProduct(model: ProductModel): void {
     const { itemNumber } = model;
     if (this.findByItemNumber(itemNumber)) {
       throw new BadRequest(`Product with item number ${itemNumber} already exists`);
     }
 
-    productCollection.push({ id: generateId(), ...model });
+    productCollection.push({ ...model, id: generateId() });
   }
 
-  updateByExisting(id: string, dataFn: (product: Product) => Partial<Product>): void {
+  updateByExisting(id: string, dataFn: (product: ProductModel) => Partial<ProductModel>): void {
     const product = this.getProductById(id);
 
     if (!product) {

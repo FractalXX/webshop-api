@@ -1,8 +1,9 @@
 import { Service } from '@tsed/di';
 import { plainToClass } from 'class-transformer';
+import { CustomerInfoType } from '../enums/CustomerInfoType';
 import { customerCollection } from '../mocks/CustomerCollection';
 import CustomerModel from '../models/CustomerModel';
-import { CustomerInfo } from '../schemas/CustomerInfo';
+import { Customer } from '../schemas/Customer';
 import generateId from '../utils/GenerateId';
 import { CustomerInfoService } from './CustomerInfoService';
 
@@ -12,7 +13,6 @@ export class CustomerService {
 
   getAllCustomers(): CustomerModel[] {
     return customerCollection.map((customer) => {
-      // TODO use models instead of schema
       const shippingInfos = (customer.shippingInfos as string[]).map((infoId) => this.customerInfoService.getCustomerInfoById(infoId));
       const billingInfo = this.customerInfoService.getCustomerInfoById(customer.billingInfo as string);
 
@@ -24,24 +24,28 @@ export class CustomerService {
     });
   }
 
-  getCustomerById(id: string): CustomerModel | undefined {
+  getCustomerById(id: string): Customer | undefined {
     return customerCollection.find((customer) => customer.id === id);
   }
 
   createCustomer(model: CustomerModel): CustomerModel {
-    const billingInfoId = this.customerInfoService.addCustomerInfo(model.billingInfo as CustomerInfo);
-    const shippingInfoIds = (model.shippingInfos as CustomerInfo[]).map((shippingInfo) =>
-      this.customerInfoService.addCustomerInfo(shippingInfo)
+    const billingInfoId = this.customerInfoService.addCustomerInfo(model.billingInfo, CustomerInfoType.BILLING_INFO);
+    const shippingInfoIds = model.shippingInfos.map((shippingInfo) =>
+      this.customerInfoService.addCustomerInfo(shippingInfo, CustomerInfoType.SHIPPING_INFO)
     );
 
-    const customer: CustomerModel = {
+    const id = generateId();
+    const customer: Customer = {
       ...model,
-      id: generateId(),
+      id,
       billingInfo: billingInfoId,
       shippingInfos: shippingInfoIds,
     };
 
     customerCollection.push(customer);
-    return customer;
+    return {
+      ...model,
+      id,
+    };
   }
 }

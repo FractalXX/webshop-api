@@ -66,7 +66,7 @@ export class OrderService {
     const customer = this.customerService.getCustomerById(order.customerId);
     const shippingInfo = this.customerInfoService.getCustomerInfoById(order.shippingInfoId);
     const billingInfo = this.customerInfoService.getCustomerInfoById(order.billingInfoId);
-    // TODO remove customerId
+
     return plainToClass(OrderModel, {
       ...order,
       customer,

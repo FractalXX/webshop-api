@@ -1,6 +1,4 @@
-import { Product } from '../schemas/Product';
-
-export const productCollection: Product[] = [
+export const productCollection = [
   {
     id: '5f8f32c0fc13ae6785000000',
     name: 'Sauce - Soya, Dark',

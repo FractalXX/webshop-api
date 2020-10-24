@@ -1,7 +1,6 @@
-import { BodyParams, Controller, Get, Post, QueryParams } from '@tsed/common';
-import ProductCreationModel from '../models/ProductCreationModel';
+import { BodyParams, Controller, Get, Post, QueryParams, Status } from '@tsed/common';
+import ProductModel from '../models/ProductModel';
 import ProductQueryParamsModel from '../models/ProductQueryParamsModel';
-import { Product } from '../schemas/Product';
 import { ProductService } from '../services/ProductService';
 
 @Controller('/products')
@@ -9,13 +8,13 @@ export class ProductController {
   constructor(private productService: ProductService) {}
 
   @Get()
-  // TODO model
-  getProducts(@QueryParams() queryParams: ProductQueryParamsModel): Product[] {
+  getProducts(@QueryParams() queryParams: ProductQueryParamsModel): ProductModel[] {
     return this.productService.getProducts(queryParams);
   }
 
   @Post()
-  createProduct(@BodyParams() model: ProductCreationModel): void {
+  @Status(201)
+  createProduct(@BodyParams() model: ProductModel): void {
     return this.productService.createProduct(model);
   }
 }

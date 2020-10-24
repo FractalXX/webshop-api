@@ -1,6 +1,5 @@
-import { Product } from '../schemas/Product';
-
+import ProductModel from './ProductModel';
 export default class ProductWithQuantityModel {
-  product: Product;
+  product: ProductModel;
   quantity: number;
 }

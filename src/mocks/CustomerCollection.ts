@@ -1,7 +1,6 @@
-import CustomerModel from '../models/CustomerModel';
-// import { Customer } from '../schemas/Customer';
+import { Customer } from '../schemas/Customer';
 
-export const customerCollection: CustomerModel[] = [
+export const customerCollection: Customer[] = [
   {
     id: '295d19WoKj89k0D17W931D44',
     name: 'Rocky Canelas',

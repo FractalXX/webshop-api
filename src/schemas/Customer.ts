@@ -3,6 +3,6 @@ export interface Customer {
   name: string;
   email: string;
   birthDate: Date;
-  shippingInfoIds: string[];
-  billingInfoId: string;
+  shippingInfos: string[];
+  billingInfo: string;
 }
