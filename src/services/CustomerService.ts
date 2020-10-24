@@ -1,4 +1,5 @@
 import { Service } from '@tsed/di';
+import { NotFound } from '@tsed/exceptions';
 import { plainToClass } from 'class-transformer';
 import { CustomerInfoType } from '../enums/CustomerInfoType';
 import { customerCollection } from '../mocks/CustomerCollection';
@@ -12,16 +13,16 @@ export class CustomerService {
   constructor(private customerInfoService: CustomerInfoService) {}
 
   getAllCustomers(): CustomerModel[] {
-    return customerCollection.map((customer) => {
-      const shippingInfos = (customer.shippingInfos as string[]).map((infoId) => this.customerInfoService.getCustomerInfoById(infoId));
-      const billingInfo = this.customerInfoService.getCustomerInfoById(customer.billingInfo as string);
+    return customerCollection.map((customer) => this.createCustomerModel(customer));
+  }
 
-      return plainToClass(CustomerModel, {
-        ...customer,
-        shippingInfos,
-        billingInfo,
-      });
-    });
+  getCustomerModelById(id: string): CustomerModel {
+    const customer = this.getCustomerById(id);
+    if (!customer) {
+      throw new NotFound(`Could not find customer with id ${id}.`);
+    }
+
+    return this.createCustomerModel(customer);
   }
 
   getCustomerById(id: string): Customer | undefined {
@@ -47,5 +48,16 @@ export class CustomerService {
       ...model,
       id,
     };
+  }
+
+  createCustomerModel(customer: Customer): CustomerModel {
+    const shippingInfos = (customer.shippingInfos as string[]).map((infoId) => this.customerInfoService.getCustomerInfoById(infoId));
+    const billingInfo = this.customerInfoService.getCustomerInfoById(customer.billingInfo as string);
+
+    return plainToClass(CustomerModel, {
+      ...customer,
+      shippingInfos,
+      billingInfo,
+    });
   }
 }

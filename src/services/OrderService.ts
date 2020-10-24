@@ -1,5 +1,5 @@
 import { Service } from '@tsed/di';
-import { BadRequest } from '@tsed/exceptions';
+import { BadRequest, NotFound } from '@tsed/exceptions';
 import { plainToClass } from 'class-transformer';
 import { OrderStatus } from '../enums/OrderStatus';
 import { orderCollection } from '../mocks/OrderCollection';
@@ -27,6 +27,15 @@ export class OrderService {
       .filter((order) => !queryParams.status || queryParams.status === order.status)
       .map((order) => this.createOrderModel(order))
       .sort((a, b) => a.placedAt.getTime() - b.placedAt.getTime());
+  }
+
+  getOrderById(id: string): OrderModel {
+    const order = orderCollection.find((order) => order.id === id);
+    if (!order) {
+      throw new NotFound(`Could not find order with id ${id}.`);
+    }
+
+    return this.createOrderModel(order);
   }
 
   createOrder(model: OrderPlaceModel): OrderModel {

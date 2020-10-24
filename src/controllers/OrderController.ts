@@ -1,4 +1,4 @@
-import { BodyParams, Controller, Get, Post, QueryParams, Status } from '@tsed/common';
+import { BodyParams, Controller, Get, PathParams, Post, QueryParams, Status } from '@tsed/common';
 import { Summary } from '@tsed/swagger';
 import OrderModel from '../models/OrderModel';
 import OrderPlaceModel from '../models/OrderPlaceModel';
@@ -13,6 +13,12 @@ export class OrderController {
   @Summary('Get all orders')
   getOrders(@QueryParams() queryParams: OrderQueryParamsModel): OrderModel[] {
     return this.orderService.getOrdersByQueryParams(queryParams);
+  }
+
+  @Get('/:id')
+  @Summary('Get order')
+  getOrderById(@PathParams('id') id: string): OrderModel {
+    return this.orderService.getOrderById(id);
   }
 
   @Post()
