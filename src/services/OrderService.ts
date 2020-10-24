@@ -29,7 +29,7 @@ export class OrderService {
       .sort((a, b) => a.placedAt.getTime() - b.placedAt.getTime());
   }
 
-  createOrder(model: OrderPlaceModel): void {
+  createOrder(model: OrderPlaceModel): OrderModel {
     this.validateOrder(model);
 
     const customer = this.customerService.getCustomerById(model.customerId);
@@ -43,12 +43,13 @@ export class OrderService {
     }
 
     const id = generateId();
-    orderCollection.push({
+    const order = {
       id,
       placedAt: new Date(),
       status: OrderStatus.PROCESSING,
       ...model,
-    });
+    };
+    orderCollection.push(order);
 
     model.productOrders.forEach((productOrder) => {
       this.productOrderService.addProductOrder({
@@ -56,6 +57,8 @@ export class OrderService {
         orderId: id,
       });
     });
+
+    return this.createOrderModel(order);
   }
 
   createOrderModel(order: Order): OrderModel {

@@ -18,7 +18,7 @@ export class OrderController {
   @Post()
   @Status(201)
   @Summary('Create an order')
-  createOrder(@BodyParams() model: OrderPlaceModel): void {
-    this.orderService.createOrder(model);
+  createOrder(@BodyParams() model: OrderPlaceModel): OrderModel {
+    return this.orderService.createOrder(model);
   }
 }
