@@ -16,4 +16,8 @@ $ npm run start:dev
 # build for production
 $ npm run build
 $ npm run start
+
+# docker build and start
+$ npm run build:docker
+$ npm run start:docker
 ```
