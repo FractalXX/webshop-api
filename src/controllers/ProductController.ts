@@ -2,12 +2,19 @@ import { BodyParams, Controller, Get, Post, QueryParams, Returns, ReturnsArray, 
 import { Summary } from '@tsed/swagger';
 import ProductModel from '../models/ProductModel';
 import ProductQueryParamsModel from '../models/ProductQueryParamsModel';
-import { ProductService } from '../services/ProductService';
+import ProductService from '../services/ProductService';
 
+/**
+ * Controller for the product resource.
+ */
 @Controller('/products')
-export class ProductController {
+export default class ProductController {
   constructor(private productService: ProductService) {}
 
+  /**
+   * REST endpoint that queries and returns products.
+   * @param queryParams The query parameters.
+   */
   @Get()
   @Summary('Query products')
   @ReturnsArray(ProductModel)
@@ -15,6 +22,10 @@ export class ProductController {
     return this.productService.getProducts(queryParams);
   }
 
+  /**
+   * REST endpoint that creates a new product.
+   * @param model The product model.
+   */
   @Post()
   @Status(201)
   @Summary('Create product')

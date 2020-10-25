@@ -6,15 +6,24 @@ import { orderCollection } from '../mocks/OrderCollection';
 import OrderModel from '../models/OrderModel';
 import OrderPlaceModel from '../models/OrderPlaceModel';
 import OrderQueryParamsModel from '../models/OrderQueryParamsModel';
-import { Order } from '../schemas/Order';
+import Order from '../schemas/Order';
 import generateId from '../utils/GenerateId';
-import { CustomerInfoService } from './CustomerInfoService';
-import { CustomerService } from './CustomerService';
+import CustomerInfoService from './CustomerInfoService';
+import CustomerService from './CustomerService';
 import ProductOrderService from './ProductOrderService';
-import { ProductService } from './ProductService';
+import ProductService from './ProductService';
 
+/**
+ * Handles getting and updating Order entities.
+ *
+ * Depends on:
+ * - ProductService
+ * - ProductOrderService
+ * - CustomerService
+ * - CustomerInfoService
+ */
 @Service()
-export class OrderService {
+export default class OrderService {
   constructor(
     private productService: ProductService,
     private productOrderService: ProductOrderService,
@@ -22,6 +31,10 @@ export class OrderService {
     private customerInfoService: CustomerInfoService
   ) {}
 
+  /**
+   * Gets orders by query params.
+   * @param queryParams The query parameters.
+   */
   getOrdersByQueryParams(queryParams: OrderQueryParamsModel): OrderModel[] {
     return orderCollection
       .filter((order) => !queryParams.status || queryParams.status === order.status)
@@ -29,6 +42,10 @@ export class OrderService {
       .sort((a, b) => a.placedAt.getTime() - b.placedAt.getTime());
   }
 
+  /**
+   * Gets a single order and maps it to a model.
+   * @param id The id of the order.
+   */
   getOrderById(id: string): OrderModel {
     const order = orderCollection.find((order) => order.id === id);
     if (!order) {
@@ -38,6 +55,12 @@ export class OrderService {
     return this.createOrderModel(order);
   }
 
+  /**
+   * Adds a new order to the database.
+   * @param model The model.
+   *
+   * @returns The created Order.
+   */
   createOrder(model: OrderPlaceModel): OrderModel {
     this.validateOrder(model);
 
@@ -70,6 +93,10 @@ export class OrderService {
     return this.createOrderModel(order);
   }
 
+  /**
+   * Maps an Order entity to a model.
+   * @param order The Order entity.
+   */
   createOrderModel(order: Order): OrderModel {
     const productsWithQuantites = this.productOrderService.getProductOrdersByOrderId(order.id).map((productOrder) => ({
       quantity: productOrder.quantity,
@@ -88,6 +115,13 @@ export class OrderService {
     });
   }
 
+  /**
+   * Validates an Order.
+   * Validations:
+   * - Checks if all products in the order exist
+   * - Checks if the ordered quantity of the products are less than the stock.
+   * @param model The model.
+   */
   validateOrder(model: OrderPlaceModel): void {
     model.productOrders.forEach((productOrder) => {
       const product = this.productService.getProductById(productOrder.productId);

@@ -1,7 +1,7 @@
 import { OrderStatus } from '../enums/OrderStatus';
 import { PaymentMethod } from '../enums/PaymentMethod';
 
-export interface Order {
+export default interface Order {
   id: string;
   customerId: string;
   shippingInfoId: string;

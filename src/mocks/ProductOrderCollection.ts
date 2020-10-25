@@ -1,6 +1,4 @@
-import ProductOrder from '../schemas/ProductOrder';
-
-export const productOrderCollection: ProductOrder[] = [
+export const productOrderCollection = [
   {
     id: 'U231lKq03d9078jw3947qly3',
     productId: '5f8f32c1fc13ae6785000007',

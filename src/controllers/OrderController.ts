@@ -3,12 +3,19 @@ import { Summary } from '@tsed/swagger';
 import OrderModel from '../models/OrderModel';
 import OrderPlaceModel from '../models/OrderPlaceModel';
 import OrderQueryParamsModel from '../models/OrderQueryParamsModel';
-import { OrderService } from '../services/OrderService';
+import OrderService from '../services/OrderService';
 
+/**
+ * Controller for the order resource.
+ */
 @Controller('/orders')
-export class OrderController {
+export default class OrderController {
   constructor(private orderService: OrderService) {}
 
+  /**
+   * REST endpoint that queries and returns orders.
+   * @param queryParams The query parameters.
+   */
   @Get()
   @Summary('Get all orders')
   @ReturnsArray(OrderModel)
@@ -16,6 +23,10 @@ export class OrderController {
     return this.orderService.getOrdersByQueryParams(queryParams);
   }
 
+  /**
+   * REST endpoint that returns a single order by id.
+   * @param id The id of the order.
+   */
   @Get('/:id')
   @Summary('Get order')
   @Returns(OrderModel)
@@ -23,6 +34,10 @@ export class OrderController {
     return this.orderService.getOrderById(id);
   }
 
+  /**
+   * REST endpoint that creates a new order.
+   * @param model The order model.
+   */
   @Post()
   @Status(201)
   @Summary('Create an order')

@@ -1,6 +1,6 @@
 import { OrderStatus } from '../enums/OrderStatus';
 import { PaymentMethod } from '../enums/PaymentMethod';
-import { Order } from '../schemas/Order';
+import Order from '../schemas/Order';
 
 export const orderCollection: Order[] = [
   {

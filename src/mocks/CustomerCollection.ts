@@ -1,4 +1,4 @@
-import { Customer } from '../schemas/Customer';
+import Customer from '../schemas/Customer';
 
 export const customerCollection: Customer[] = [
   {
