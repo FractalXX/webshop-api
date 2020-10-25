@@ -31,13 +31,15 @@ export class ProductService {
     return productCollection.find((product) => product.itemNumber === itemNumber);
   }
 
-  createProduct(model: ProductModel): void {
+  createProduct(model: ProductModel): ProductModel {
     const { itemNumber } = model;
     if (this.findByItemNumber(itemNumber)) {
       throw new BadRequest(`Product with item number ${itemNumber} already exists`);
     }
 
-    productCollection.push({ ...model, id: generateId() });
+    const product = { ...model, id: generateId() };
+    productCollection.push(product);
+    return product;
   }
 
   updateByExisting(id: string, dataFn: (product: ProductModel) => Partial<ProductModel>): void {

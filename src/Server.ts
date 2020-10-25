@@ -1,6 +1,6 @@
 import { Configuration, Inject } from '@tsed/di';
 import { PlatformApplication } from '@tsed/common';
-import '@tsed/platform-express'; // /!\ keep this import
+import '@tsed/platform-express';
 import * as bodyParser from 'body-parser';
 import * as compress from 'compression';
 import * as cookieParser from 'cookie-parser';
@@ -14,6 +14,7 @@ export const rootDir = __dirname;
   rootDir,
   acceptMimes: ['application/json'],
   httpPort: process.env.PORT || 3000,
+  httpsPort: false,
   mount: {
     '/': [`${rootDir}/controllers/**/*.ts`],
   },
@@ -22,7 +23,6 @@ export const rootDir = __dirname;
       path: '/docs',
     },
   ],
-  exclude: ['**/*.spec.ts'],
 })
 export class Server {
   @Inject()

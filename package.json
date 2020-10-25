@@ -1,17 +1,18 @@
 {
   "name": "webshop-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Webshop example API",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FractalXX/webshop-api"
+  },
   "scripts": {
     "build": "tsc",
-    "tsc": "tsc --project tsconfig.compile.json",
-    "tsc:w": "tsc --project tsconfig.json -w",
-    "start": "nodemon --watch \"src/**/*.ts\" --ignore \"node_modules/**/*\" --exec ts-node src/index.ts",
-    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
-    "test:lint": "eslint src --ext .ts",
-    "test:lint:fix": "eslint src --ext .ts --fix",
-    "lint-staged": "lint-staged",
-    "prettier": "prettier '{src,test}/**/*.ts' --write"
+    "build:docker": "docker build -t webshop-api:SNAPSHOT .",
+    "start": "NODE_ENV=production node dist/index.js",
+    "start:dev": "npm run build && node dist/index.js",
+    "start:docker": "docker run -p 3000:3000 webshop-api:SNAPSHOT",
+    "lint:fix": "eslint src --ext .ts --fix"
   },
   "dependencies": {
     "@tsed/ajv": "5.65.8",
@@ -22,22 +23,6 @@
     "@tsed/passport": "5.65.8",
     "@tsed/platform-express": "5.65.8",
     "@tsed/swagger": "5.65.8",
-    "ajv": "6.12.6",
-    "body-parser": "1.19.0",
-    "class-transformer": "0.3.1",
-    "compression": "1.7.4",
-    "concurrently": "5.3.0",
-    "cookie-parser": "1.4.5",
-    "cors": "2.8.5",
-    "cross-env": "7.0.2",
-    "express": "4.17.1",
-    "method-override": "3.0.0",
-    "passport": "0.4.1",
-    "uuid": "^8.3.1"
-  },
-  "devDependencies": {
-    "@tsed/cli-plugin-eslint": "1.19.0",
-    "@tsed/cli-plugin-passport": "1.19.0",
     "@types/compression": "1.7.0",
     "@types/cookie-parser": "1.4.2",
     "@types/cors": "2.8.6",
@@ -46,19 +31,31 @@
     "@types/node": "14.14.0",
     "@types/passport": "1.0.4",
     "@types/swagger-schema-official": "2.0.20",
-    "@types/uuid": "^8.3.0",
+    "@types/uuid": "8.3.0",
+    "ajv": "6.12.6",
+    "body-parser": "1.19.0",
+    "class-transformer": "0.3.1",
+    "compression": "1.7.4",
+    "cookie-parser": "1.4.5",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "method-override": "3.0.0",
+    "ts-node": "9.0.0",
+    "typescript": "4.0.3",
+    "uuid": "8.3.1"
+  },
+  "devDependencies": {
+    "@tsed/cli-plugin-eslint": "1.19.0",
+    "@tsed/cli-plugin-passport": "1.19.0",
     "@typescript-eslint/eslint-plugin": "4.5.0",
     "@typescript-eslint/parser": "4.5.0",
-    "concurrently": "5.3.0",
     "eslint": "7.11.0",
     "eslint-config-prettier": "6.13.0",
     "eslint-plugin-prettier": "3.1.4",
     "husky": "4.3.0",
     "lint-staged": "10.4.2",
     "nodemon": "2.0.6",
-    "prettier": "2.1.2",
-    "ts-node": "9.0.0",
-    "typescript": "4.0.3"
+    "prettier": "2.1.2"
   },
   "husky": {
     "hooks": {

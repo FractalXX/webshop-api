@@ -1,18 +1,17 @@
 FROM node:12.13.0-alpine
 
-RUN apk update && apk add build-base git python
+RUN apk update && apk add build-base git
 
 COPY package.json .
-COPY yarn.lock .
+COPY package-lock.json .
+RUN npm install --production
+
 COPY ./src ./src
-COPY ./dist ./dist
-COPY ./resources ./resources
-COPY ./spec ./spec
+COPY tsconfig.json .
+RUN npm run build
 
-RUN yarn install --production
-
-EXPOSE 8081
-ENV PORT 8081
+EXPOSE 3000
+ENV PORT 3000
 ENV NODE_ENV production
 
-CMD ["yarn", "start:prod"]
+CMD ["npm", "start"]

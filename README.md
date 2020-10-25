@@ -1,8 +1,6 @@
 # webshop-api
 
-> An awesome project based on Ts.ED framework
-
-See [Ts.ED](https://tsed.io) project for more information.
+> An example API for a webshop.
 
 ## Build setup
 
@@ -10,12 +8,12 @@ See [Ts.ED](https://tsed.io) project for more information.
 
 ```batch
 # install dependencies
-$ yarn install
+$ npm install
 
-# serve
-$ yarn start
+# start for development
+$ npm run start:dev
 
 # build for production
-$ yarn build
-$ yarn start:prod
+$ npm run build
+$ npm run start
 ```

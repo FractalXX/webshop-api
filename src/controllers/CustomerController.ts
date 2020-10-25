@@ -1,4 +1,4 @@
-import { BodyParams, Controller, Get, PathParams, Post, ReturnsArray, Status } from '@tsed/common';
+import { BodyParams, Controller, Get, PathParams, Post, Returns, ReturnsArray, Status } from '@tsed/common';
 import { Summary } from '@tsed/swagger';
 import CustomerModel from '../models/CustomerModel';
 import { CustomerService } from '../services/CustomerService';
@@ -16,6 +16,7 @@ export class CustomerController {
 
   @Get('/:id')
   @Summary('Get customer')
+  @Returns(CustomerModel)
   getCustomerById(@PathParams('id') id: string): CustomerModel {
     return this.customerService.getCustomerModelById(id);
   }
@@ -23,6 +24,7 @@ export class CustomerController {
   @Post()
   @Status(201)
   @Summary('Create customer')
+  @Returns(CustomerModel)
   createCustomer(@BodyParams() model: CustomerModel): CustomerModel {
     return this.customerService.createCustomer(model);
   }
